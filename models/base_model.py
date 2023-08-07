@@ -24,9 +24,10 @@ class BaseModel:
                 # If key is __class__, skip it
                 if key == "__class__":
                     continue
-                # if the key is created_at or updated_at convert value to datetime
+                # if key is created_at or updated_at convert value to datetime
                 elif key == "created_at" or key == "updated_at":
-                    value = datetime.datetime.strptime(value, "%Y-%m-%dT%H:%M:%S.%f")
+                    formats = "%Y-%m-%dT%H:%M:%S.%f"
+                    value = datetime.datetime.strptime(value, formats)
                 # Set the instance attribute with the key and value
                 setattr(self, key, value)
         # otherwise
@@ -41,14 +42,14 @@ class BaseModel:
     def __str__(self):
         """Return a formatted string with the instance information"""
         # Return a formatted string with the class name, id, and __dict__
-        return "[{}] ({}) {}".format(self.__class__.__name__, self.id, self.__dict__)
+        return "[{}] ({}) {}".format(clsName, self.id, self.__dict__)
 
     def save(self):
         """Update the updated_at attribute with the current datetime"""
         # Assign the current datetime to updated at
         self.updated_at = datetime.datetime.now()
 
-    # Define the to_dict method to return a dictionary representation of the instance
+    # Define the to_dict method to return dictionary representation of instance
     def to_dict(self):
         """Return the dictionary representation of the instance"""
         # Create a copy of the instance __dict__
