@@ -11,12 +11,31 @@ class BaseModel:
     """Base class for all models"""
 
     # Initialize the instance attributes
-    def __init__(self):
-        # Assign a unique id as a string
-        self.id = str(uuid.uuid4)
-        # Assign the current datetime as created_at and updated_at
-        self.created_at = datetime.datetime.now()
-        self.updated_at = datetime.datetime.now()
+    def __init__(self, *args, **kwargs):
+        """Initialize the instance attributes
+        Args:
+            - *args: list of arguments
+            - **kwargs: dict of key-values arguments
+        """
+        # If kwargs is not empty
+        if kwargs:
+            # loop through the kwargs dictionary
+            for key, value in kwargs.items():
+                # If key is __class__, skip it
+                if key == "__class__":
+                    continue
+                # if the key is created_at or updated_at convert value to datetime
+                elif key == "created_at" or key == "updated_at":
+                    value = datetime.datetime.strptime(value, "%Y-%m-%dT%H:%M:%S.%f")
+                # Set the instance attribute with the key and value
+                setattr(self, key, value)
+        # otherwise
+        else:
+            # Assign a unique id as a string
+            self.id = str(uuid.uuid4)
+            # Assign the current datetime as created_at and updated_at
+            self.created_at = datetime.datetime.now()
+            self.updated_at = datetime.datetime.now()
 
     # Define the __str__ method to print the instance information
     def __str__(self):
