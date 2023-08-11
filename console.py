@@ -2,6 +2,8 @@
 # Import the cmd module
 import cmd
 
+from models import storage
+
 
 # Define the HBNBCommand class that inherits from cmd.Cmd
 class HBNBCommand(cmd.Cmd):
@@ -34,6 +36,66 @@ class HBNBCommand(cmd.Cmd):
     def emptyline(self):
         """Do nothing when an empty line is entered"""
         pass
+
+    @staticmethod
+    def do_create(line):
+        """Creates an instance."""
+        if line == "" or line is None:  # Check if class name is missing
+            print("** class name missing **")
+        elif line not in storage.classes():  # Check if class doesn't exist
+            print("** class doesn't exist **")
+        else:
+            b = storage.classes()[line]()  # Create an instance
+            b.save()
+            print(b.id)
+
+    @staticmethod
+    def do_show(line):
+        """Prints the string representation of an instance."""
+        if line == "" or line is None:  # Check if class name is missing
+            print("** class name missing **")
+        else:
+            words = line.split(' ')
+            if words[0] not in storage.classes():  # Check if class doesn't exist
+                print("** class doesn't exist **")
+            elif len(words) < 2:  # Check if instance id is missing
+                print("** instance id missing **")
+            else:
+                key = "{}.{}".format(words[0], words[1])
+                if key not in storage.all():  # Check if instance not found
+                    print("** no instance found **")
+                else:
+                    print(storage.all()[key])
+
+    @staticmethod
+    def do_destroy(line):
+        """Deletes an instance based on the class name and id."""
+        if line == "" or line is None:  # Check if class name is missing
+            print("** class name missing **")
+        else:
+            words = line.split(' ')
+            if words[0] not in storage.classes():  # Check if class doesn't exist
+                print("** class doesn't exist **")
+            elif len(words) < 2:  # Check if instance id is missing
+                print("** instance id missing **")
+            else:
+                key = "{}.{}".format(words[0], words[1])
+                if key not in storage.all():  # Check if instance not found
+                    print("** no instance found **")
+                else:
+                    del storage.all()[key]  # Delete the instance
+                    storage.save()
+
+    @staticmethod
+    def do_all(line):
+        """Prints all string representation of all instances."""
+        if line != "":
+            words = line.split(' ')
+            if words[0] not in storage.classes():  # Check if class doesn't exist
+                print("** class doesn't exist **")
+        else:
+            for key in storage.all():
+                print(storage.all()[key])
 
 
 # Check if the file is executed and not imported
