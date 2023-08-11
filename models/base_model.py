@@ -4,6 +4,8 @@
 # Import the datetime and uuid modules
 import datetime
 import uuid
+# Import the variable storage from models
+import models
 
 
 # Define The base model class
@@ -37,6 +39,7 @@ class BaseModel:
             # Assign the current datetime as created_at and updated_at
             self.created_at = datetime.datetime.now()
             self.updated_at = datetime.datetime.now()
+            models.storage.new(self)
 
     # Define the __str__ method to print the instance information
     def __str__(self):
@@ -48,6 +51,8 @@ class BaseModel:
         """Update the updated_at attribute with the current datetime"""
         # Assign the current datetime to updated at
         self.updated_at = datetime.datetime.now()
+        # Call save(self) method of storage to serialize __objects to JSON file
+        models.storage.save()
 
     # Define the to_dict method to return dictionary representation of instance
     def to_dict(self):
