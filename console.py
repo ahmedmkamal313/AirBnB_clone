@@ -4,22 +4,27 @@ import cmd
 
 from models import storage
 
-
 # Define the HBNBCommand class that inherits from cmd.Cmd
+class User:
+    pass
+
+
 class HBNBCommand(cmd.Cmd):
     """A command interpreter for the AirBnB clone project"""
 
-    # Set the custom prompt to (hbnb)
+    # Set the custom prompt to (hobnob)
     prompt = "(hbnb) "
 
     # Define the quit command to exit the program
-    def do_quit(self, arg):
+    @staticmethod
+    def do_quit():
         """Quit command to exit the program"""
         # Return True to stop the cmdloop
         return True
 
     # Define the EOF command to exit the program
-    def do_EOF(self, arg):
+    @staticmethod
+    def do_EOF():
         """EOF command to exit the program"""
         # Print a new line
         print()
@@ -96,6 +101,66 @@ class HBNBCommand(cmd.Cmd):
         else:
             for key in storage.all():
                 print(storage.all()[key])
+
+    # noinspection PyShadowingNames
+    class Command:
+        ...
+
+        def do_show(self, arg):
+            """Show command"""
+            ...
+            # Check if the argument is referencing a User
+            if arg[0] == "User":
+                self.show(arg[1])  # Call the show method with User class and the specified argument
+            ...
+
+        @staticmethod
+        def do_create(arg):
+            """Create command"""
+            ...
+            # Check if the argument is referencing a User
+            if arg[0] == "User":
+                user = User()  # Create a new User instance with the provided kwargs
+                user.save()  # Save the user instance
+                print(user.id)  # Print the user ID
+            ...
+
+        def do_destroy(self, arg):
+            """Destroy command"""
+            ...
+            # Check if the argument is referencing a User
+            if arg[0] == "User":
+                self.destroy(User, arg[1])  # Call the destroy method with User class and the specified argument
+            ...
+
+        def do_update(self, arg):
+            """Update command"""
+            ...
+            # Check if the argument is referencing a User
+            if arg[0] == "User":
+                self.update(User, arg[1], arg[2], arg[3],
+                            arg[4])  # Call the update method with User class and the specified arguments
+            ...
+
+        def do_all(self, arg):
+            """All command"""
+            ...
+            # Check if the argument is referencing a User
+            if arg[0] == "User":
+                self.all(User)  # Call the all method with User class
+            ...
+
+        def show(self, param):
+            pass
+
+        def destroy(self, User, param):
+            pass
+
+        def update(self, User, param, param1, param2, param3):
+            pass
+
+        def all(self, User):
+            pass
 
 
 # Check if the file is executed and not imported
