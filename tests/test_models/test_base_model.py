@@ -12,7 +12,7 @@ import unittest
 from models import storage
 from models.base_model import BaseModel
 from models.engine.file_storage import FileStorage
-import datetime
+from datetime import datetime
 from time import sleep
 import time
 import uuid
