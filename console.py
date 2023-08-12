@@ -1,30 +1,27 @@
 #!/usr/bin/python3
 # Import the cmd module
 import cmd
-
+import shlex
 from models import storage
+from models import user
+
 
 # Define the HBNBCommand class that inherits from cmd.Cmd
-class User:
-    pass
-
-
 class HBNBCommand(cmd.Cmd):
     """A command interpreter for the AirBnB clone project"""
 
-    # Set the custom prompt to (hobnob)
+    # Set the custom prompt to (hbnb)
     prompt = "(hbnb) "
 
     # Define the quit command to exit the program
-    @staticmethod
-    def do_quit():
+
+    def do_quit(self, arg):
         """Quit command to exit the program"""
         # Return True to stop the cmdloop
         return True
 
     # Define the EOF command to exit the program
-    @staticmethod
-    def do_EOF():
+    def do_EOF(self, arg):
         """EOF command to exit the program"""
         # Print a new line
         print()
@@ -42,125 +39,176 @@ class HBNBCommand(cmd.Cmd):
         """Do nothing when an empty line is entered"""
         pass
 
-    @staticmethod
-    def do_create(line):
-        """Creates an instance."""
-        if line == "" or line is None:  # Check if class name is missing
+    # Define the create command to create a new instance of the a class
+    # and print its id
+    def do_create(self, arg):
+        """Creates an instance and prints its id"""
+        # Split the argument by spaces
+        args = arg.split()
+        # If no argument is given, print ** class name missing **
+        if len(args) == 0:
             print("** class name missing **")
-        elif line not in storage.classes():  # Check if class doesn't exist
+            return
+        # get the class name of the first argument
+        class_name = args[0]
+        #check if the class name if valid
+        if class_name not in ["BaseModel"]:
             print("** class doesn't exist **")
-        else:
-            b = storage.classes()[line]()  # Create an instance
-            b.save()
-            print(b.id)
+            return
+        # create an instance of the class using eval
+        obj = eval(class_name)()
+        # save the instance to the JSON file using storage
+        storage.save()
+        # print the id of the instance
+        print(obj.id)
 
-    @staticmethod
-    def do_show(line):
+    def do_show(self, arg):
         """Prints the string representation of an instance."""
-        if line == "" or line is None:  # Check if class name is missing
+        # Split the argument by spaces
+        args = arg.split()
+        # If no argument is given, print ** class name missing **
+        if len(args) == 0:
             print("** class name missing **")
-        else:
-            words = line.split(' ')
-            if words[0] not in storage.classes():  # Check if class doesn't exist
-                print("** class doesn't exist **")
-            elif len(words) < 2:  # Check if instance id is missing
-                print("** instance id missing **")
-            else:
-                key = "{}.{}".format(words[0], words[1])
-                if key not in storage.all():  # Check if instance not found
-                    print("** no instance found **")
-                else:
-                    print(storage.all()[key])
+            return
+            # get the class name of the first argument
+        class_name = args[0]
+        # check if the class name if valid
+        if class_name not in ["BaseModel"]:
+            print("** class doesn't exist **")
+            return
+        # if only one arg is given, print is missing
+        if len(args) == 1:
+            print("** instance id missing")
+            return
+        # get the id from the second argument
+        _id = args[1]
+        # Create a key with the format <class name>.id
+        key = "{}.{}".format(class_name, _id)
+        # Get all objects from storage using all method
+        objects = storage.all()
+        # Check if the key exists in objects dictionary, print ** no instance found ** otherwise
+        if key not in objects:
+            print("** no instance found **")
+            return
+        # Get the object from objects dictionary using key
+        obj = objects[key]
+        # Print the string representation of object using str method
+        print(str(obj))
 
-    @staticmethod
-    def do_destroy(line):
+    def do_destroy(self, arg):
         """Deletes an instance based on the class name and id."""
-        if line == "" or line is None:  # Check if class name is missing
+        # Split the argument by spaces
+        args = arg.split()
+        # If no argument is given, print ** class name missing **
+        if len(args) == 0:
             print("** class name missing **")
-        else:
-            words = line.split(' ')
-            if words[0] not in storage.classes():  # Check if class doesn't exist
-                print("** class doesn't exist **")
-            elif len(words) < 2:  # Check if instance id is missing
-                print("** instance id missing **")
-            else:
-                key = "{}.{}".format(words[0], words[1])
-                if key not in storage.all():  # Check if instance not found
-                    print("** no instance found **")
-                else:
-                    del storage.all()[key]  # Delete the instance
-                    storage.save()
+            return
+        # Get the class name from the first argument
+        class_name = args[0]
+        # Check if the class name is valid (only BaseModel for now)
+        if class_name not in ["BaseModel"]:
+            print("** class doesn't exist **")
+            return
+        # If only one argument is given, print ** instance id missing **
+        if len(args) == 1:
+            print("** instance id missing **")
+            return
+        # Get the id from the second argument
+        _id = args[1]
+        # Create a key with the format <class name>.id
+        key = "{}.{}".format(class_name, _id)
+        # Get all objects from storage using all method
+        objects = storage.all()
+        # Check if the key exists in objects dictionary, print ** no instance found ** otherwise
+        if key not in objects:
+            print("** no instance found **")
+            return
+        # Delete the object from objects dictionary using key
+        del objects[key]
+        # Save the change to the JSON file using storage
+        storage.save()
 
-    @staticmethod
-    def do_all(line):
+    def do_all(self, arg):
         """Prints all string representation of all instances."""
-        if line != "":
-            words = line.split(' ')
-            if words[0] not in storage.classes():  # Check if class doesn't exist
-                print("** class doesn't exist **")
+        # Split the argument by spaces
+        args = arg.split()
+        # Get all objects from storage using all method
+        objects = storage.all()
+        # Create an empty list to store the string representations
+        str_list = []
+        # If no argument is given, loop through all objects
+        if len(args) == 0:
+            for obj in objects.values():
+                # Append the string representation of each object to the list using str method
+                str_list.append(str(obj))
+        # Otherwise, get the class name from the first argument
         else:
-            for key in storage.all():
-                print(storage.all()[key])
+            class_name = args[0]
+            # Check if the class name is valid (only BaseModel for now), print ** class doesn't exist ** otherwise
+            if class_name not in ["BaseModel"]:
+                print("** class doesn't exist **")
+                return
+            # Loop through all objects
+            for obj in objects.values():
+                # Check if the object is an instance of the class using isinstance function
+                if isinstance(obj, eval(class_name)):
+                    # Append the string representation of each object to the list using str method
+                    str_list.append(str(obj))
+        # Print the list of strings
+        print(str_list)
 
-    # noinspection PyShadowingNames
-    class Command:
-        ...
+    def do_update(self, arg):
+        """Update command to update an instance based on its class and id"""
 
-        def do_show(self, arg):
-            """Show command"""
-            ...
-            # Check if the argument is referencing a User
-            if arg[0] == "User":
-                self.show(arg[1])  # Call the show method with User class and the specified argument
-            ...
-
-        @staticmethod
-        def do_create(arg):
-            """Create command"""
-            ...
-            # Check if the argument is referencing a User
-            if arg[0] == "User":
-                user = User()  # Create a new User instance with the provided kwargs
-                user.save()  # Save the user instance
-                print(user.id)  # Print the user ID
-            ...
-
-        def do_destroy(self, arg):
-            """Destroy command"""
-            ...
-            # Check if the argument is referencing a User
-            if arg[0] == "User":
-                self.destroy(User, arg[1])  # Call the destroy method with User class and the specified argument
-            ...
-
-        def do_update(self, arg):
-            """Update command"""
-            ...
-            # Check if the argument is referencing a User
-            if arg[0] == "User":
-                self.update(User, arg[1], arg[2], arg[3],
-                            arg[4])  # Call the update method with User class and the specified arguments
-            ...
-
-        def do_all(self, arg):
-            """All command"""
-            ...
-            # Check if the argument is referencing a User
-            if arg[0] == "User":
-                self.all(User)  # Call the all method with User class
-            ...
-
-        def show(self, param):
-            pass
-
-        def destroy(self, User, param):
-            pass
-
-        def update(self, User, param, param1, param2, param3):
-            pass
-
-        def all(self, User):
-            pass
+        # split the arg by spaces, preserving strings between double
+        # quotes using shlex module
+        args = shlex.split(arg)
+        # if no argument is given, print missing
+        if len(args) == 0:
+            print("** class name missing **")
+            return
+            # Get the class name from the first argument
+        class_name = args[0]
+        # Check if the class name is valid (only BaseModel for now)
+        if class_name not in ["BaseModel"]:
+            print("** class doesn't exist **")
+            return
+        # If only one argument is given, print ** instance id missing **
+        if len(args) == 1:
+            print("** instance id missing **")
+            return
+        # get id from the second arg
+        _id = args[1]
+        # Create a key with the format <class name>.id
+        key = "{}.{}".format(class_name, _id)
+        # Get all objects from storage using all method
+        objects = storage.all()
+        # Check if the key exists in objects dictionary, print ** no instance found ** otherwise
+        if key not in objects:
+            print("** no instance found **")
+            return
+        obj = objects[key]
+        # if only two args are given, print ** attribute name missing **
+        if len(args) == 2:
+            print("** attribute name missing **")
+            return
+        # get the attr name from the third arg
+        attr_name = args[2]
+        # if only 3 args are given print value missing
+        if len(args) == 3:
+            print("** value missing **")
+            return
+        # get the atr value from the 4th arg
+        attr_value = args[3]
+        try:
+            attr_value = int(attr_value)
+        except ValueError:
+            try:
+                attr_value = float(attr_value)
+            except ValueError:
+                attr_value = str(attr_value).strip('"')
+        setattr(obj, attr_name, attr_value)
+        storage.save()
 
 
 # Check if the file is executed and not imported
