@@ -16,6 +16,16 @@ from models.city import City
 from models.amenity import Amenity
 from models.review import Review
 
+class_home = {
+    "BaseModel": BaseModel,
+    "User": User,
+    "Place": Place,
+    "Amenity": Amenity,
+    "City": City,
+    "Review": Review,
+    "State": State
+}
+
 
 # Define the HBNBCommand class that inherits from cmd.Cmd
 class HBNBCommand(cmd.Cmd):
@@ -63,7 +73,7 @@ class HBNBCommand(cmd.Cmd):
         # get the class name of the first argument
         class_name = args[0]
         # check if the class name if valid
-        if class_name not in ["BaseModel", "User"]:
+        if class_name not in class_home:
             print("** class doesn't exist **")
             return
         # create an instance of the class using eval
@@ -84,7 +94,7 @@ class HBNBCommand(cmd.Cmd):
             # get the class name of the first argument
         class_name = args[0]
         # check if the class name if valid
-        if class_name not in ["BaseModel", "User"]:
+        if class_name not in class_home:
             print("** class doesn't exist **")
             return
         # if only one arg is given, print is missing
@@ -118,7 +128,7 @@ class HBNBCommand(cmd.Cmd):
         # Get the class name from the first argument
         class_name = args[0]
         # Check if the class name is valid (only BaseModel for now)
-        if class_name not in ["BaseModel", "User"]:
+        if class_name not in class_home:
             print("** class doesn't exist **")
             return
         # If only one argument is given, print ** instance id missing **
@@ -160,7 +170,7 @@ class HBNBCommand(cmd.Cmd):
             class_name = args[0]
             # Check if the class name is valid (only BaseModel for now),
             # print ** class doesn't exist ** otherwise
-            if class_name not in ["BaseModel", "User"]:
+            if class_name not in class_home:
                 print("** class doesn't exist **")
                 return
             # Loop through all objects
@@ -187,7 +197,7 @@ class HBNBCommand(cmd.Cmd):
             # Get the class name from the first argument
         class_name = args[0]
         # Check if the class name is valid (only BaseModel for now)
-        if class_name not in ["BaseModel", "User"]:
+        if class_name not in class_home:
             print("** class doesn't exist **")
             return
         # If only one argument is given, print ** instance id missing **
