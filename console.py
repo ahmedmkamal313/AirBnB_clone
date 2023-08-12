@@ -51,7 +51,7 @@ class HBNBCommand(cmd.Cmd):
             return
         # get the class name of the first argument
         class_name = args[0]
-        #check if the class name if valid
+        # check if the class name if valid
         if class_name not in ["BaseModel"]:
             print("** class doesn't exist **")
             return
@@ -86,7 +86,8 @@ class HBNBCommand(cmd.Cmd):
         key = "{}.{}".format(class_name, _id)
         # Get all objects from storage using all method
         objects = storage.all()
-        # Check if the key exists in objects dictionary, print ** no instance found ** otherwise
+        # Check if the key exists in objects dictionary,
+        # print ** no instance found ** otherwise
         if key not in objects:
             print("** no instance found **")
             return
@@ -119,7 +120,8 @@ class HBNBCommand(cmd.Cmd):
         key = "{}.{}".format(class_name, _id)
         # Get all objects from storage using all method
         objects = storage.all()
-        # Check if the key exists in objects dictionary, print ** no instance found ** otherwise
+        # Check if the key exists in objects dictionary,
+        # print ** no instance found ** otherwise
         if key not in objects:
             print("** no instance found **")
             return
@@ -139,20 +141,24 @@ class HBNBCommand(cmd.Cmd):
         # If no argument is given, loop through all objects
         if len(args) == 0:
             for obj in objects.values():
-                # Append the string representation of each object to the list using str method
+                # Append the string representation of
+                # each object to the list using str method
                 str_list.append(str(obj))
         # Otherwise, get the class name from the first argument
         else:
             class_name = args[0]
-            # Check if the class name is valid (only BaseModel for now), print ** class doesn't exist ** otherwise
+            # Check if the class name is valid (only BaseModel for now),
+            # print ** class doesn't exist ** otherwise
             if class_name not in ["BaseModel"]:
                 print("** class doesn't exist **")
                 return
             # Loop through all objects
             for obj in objects.values():
-                # Check if the object is an instance of the class using isinstance function
+                # Check if the object is an instance of
+                # the class using isinstance function
                 if isinstance(obj, eval(class_name)):
-                    # Append the string representation of each object to the list using str method
+                    # Append the string representation of each
+                    # object to the list using str method
                     str_list.append(str(obj))
         # Print the list of strings
         print(str_list)
@@ -183,7 +189,8 @@ class HBNBCommand(cmd.Cmd):
         key = "{}.{}".format(class_name, _id)
         # Get all objects from storage using all method
         objects = storage.all()
-        # Check if the key exists in objects dictionary, print ** no instance found ** otherwise
+        # Check if the key exists in objects dictionary,
+        # print ** no instance found ** otherwise
         if key not in objects:
             print("** no instance found **")
             return
