@@ -4,6 +4,7 @@ import cmd
 import shlex
 from models import storage
 from models import user
+from models.base_model import BaseModel
 
 
 # Define the HBNBCommand class that inherits from cmd.Cmd
@@ -52,7 +53,7 @@ class HBNBCommand(cmd.Cmd):
         # get the class name of the first argument
         class_name = args[0]
         # check if the class name if valid
-        if class_name not in ["BaseModel"]:
+        if class_name not in ["BaseModel", "User"]:
             print("** class doesn't exist **")
             return
         # create an instance of the class using eval
@@ -73,12 +74,12 @@ class HBNBCommand(cmd.Cmd):
             # get the class name of the first argument
         class_name = args[0]
         # check if the class name if valid
-        if class_name not in ["BaseModel"]:
+        if class_name not in ["BaseModel", "User"]:
             print("** class doesn't exist **")
             return
         # if only one arg is given, print is missing
         if len(args) == 1:
-            print("** instance id missing")
+            print("** instance id missing **")
             return
         # get the id from the second argument
         _id = args[1]
@@ -107,7 +108,7 @@ class HBNBCommand(cmd.Cmd):
         # Get the class name from the first argument
         class_name = args[0]
         # Check if the class name is valid (only BaseModel for now)
-        if class_name not in ["BaseModel"]:
+        if class_name not in ["BaseModel", "User"]:
             print("** class doesn't exist **")
             return
         # If only one argument is given, print ** instance id missing **
@@ -149,7 +150,7 @@ class HBNBCommand(cmd.Cmd):
             class_name = args[0]
             # Check if the class name is valid (only BaseModel for now),
             # print ** class doesn't exist ** otherwise
-            if class_name not in ["BaseModel"]:
+            if class_name not in ["BaseModel"", User"]:
                 print("** class doesn't exist **")
                 return
             # Loop through all objects
@@ -176,7 +177,7 @@ class HBNBCommand(cmd.Cmd):
             # Get the class name from the first argument
         class_name = args[0]
         # Check if the class name is valid (only BaseModel for now)
-        if class_name not in ["BaseModel"]:
+        if class_name not in ["BaseModel", "User"]:
             print("** class doesn't exist **")
             return
         # If only one argument is given, print ** instance id missing **
