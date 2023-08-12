@@ -1,4 +1,5 @@
 #!/usr/bin/python3
+"""A class that represents a user"""
 from models.base_model import BaseModel
 
 
