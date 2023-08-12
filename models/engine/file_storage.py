@@ -62,12 +62,14 @@ class FileStorage:
                 for key, value in json_dict.items():
                     # Get the class name from the value using its __class__ key
                     class_name = value["__class__"]
-                    # Import the class from models using globals()
-                    cls = globals()[class_name]
-                    # Create an instance of class using its **value as kwargs
-                    obj = cls(**value)
-                    # Set in __objects the obj with key <obj class name>.id
-                    FileStorage.__objects[key] = obj
+                    # Check if the class name is valid (only BaseModel and User for now)
+                    if class_name in ["BaseModel", "User"]:
+                        # Import the class from models using globals()
+                        cls = globals()[class_name]
+                        # Create an instance of class using its **value as kwargs
+                        obj = cls(**value)
+                        # Set in __objects the obj with key <obj class name>.id
+                        FileStorage.__objects[key] = obj
 
     def _serialize_user(self, obj):
         """
