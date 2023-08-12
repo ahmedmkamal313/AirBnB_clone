@@ -8,8 +8,8 @@ import models
 import json
 import re
 from models import storage
-from models import user
 from models.base_model import BaseModel
+from models.user import User
 from models.place import Place
 from models.state import State
 from models.city import City
