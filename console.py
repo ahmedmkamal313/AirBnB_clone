@@ -1,10 +1,20 @@
 #!/usr/bin/python3
-# Import the cmd module
+"""Module for the entry point of the command interpreter."""
+
+
 import cmd
 import shlex
+import models
+import json
+import re
 from models import storage
 from models import user
 from models.base_model import BaseModel
+from models.place import Place
+from models.state import State
+from models.city import City
+from models.amenity import Amenity
+from models.review import Review
 
 
 # Define the HBNBCommand class that inherits from cmd.Cmd
@@ -150,7 +160,7 @@ class HBNBCommand(cmd.Cmd):
             class_name = args[0]
             # Check if the class name is valid (only BaseModel for now),
             # print ** class doesn't exist ** otherwise
-            if class_name not in ["BaseModel"", User"]:
+            if class_name not in ["BaseModel", "User"]:
                 print("** class doesn't exist **")
                 return
             # Loop through all objects
