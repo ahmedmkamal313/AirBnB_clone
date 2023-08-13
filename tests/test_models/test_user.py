@@ -11,7 +11,7 @@ import os
 from models import storage
 from models.user import User
 from models.base_model import BaseModel
-import datetime
+from datetime import datetime
 from time import sleep
 import uuid
 
