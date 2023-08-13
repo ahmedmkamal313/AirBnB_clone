@@ -2,7 +2,12 @@
 """Unittest module for the Amenity Class."""
 
 import unittest
+<<<<<<< HEAD
 import os
+=======
+from datetime import datetime
+from time import sleep
+>>>>>>> bac92ee49815d19fa9d1c8046412a2ace82c96e8
 from models.amenity import Amenity
 from models.base_model import BaseModel
 import uuid
