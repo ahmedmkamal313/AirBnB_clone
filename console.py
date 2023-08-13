@@ -175,7 +175,7 @@ class HBNBCommand(cmd.Cmd):
                         objects.append(str(value))
                 print(objects)
 
-    def do_update(self, line):
+        def do_update(self, line):
         """Update a class instance of a given id by adding or updating"""
         arr = line.split()
         if len(arr) < 1:
@@ -198,18 +198,10 @@ class HBNBCommand(cmd.Cmd):
                 print("** value missing **")
                 return
             else:
-                dict_str = arr[3]
-                try:
-                    dict_update = json.loads(dict_str)
-                except json.JSONDecodeError:
-                    print("** invalid JSON **")
-                    return
-                obj = storage.all()[new_str]
-                for key, value in dict_update.items():
-                    setattr(obj, key, value)
+                setattr(storage.all()[new_str], arr[2], arr[3])
                 storage.save()
 
-    def do_count(self, line):
+        def do_count(self, line):
         """Prints the number of instances of a given class"""
         # Get the class object from the global namespace
         class_object = globals().get(line, None)
