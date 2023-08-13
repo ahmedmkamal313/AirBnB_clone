@@ -1,6 +1,8 @@
 #!/usr/bin/python3
 """Module for the entry point of the command interpreter."""
 
+__authors__ = "Majda Bouzayd, Ahmed Kamal"
+
 
 import cmd
 import shlex
@@ -175,7 +177,7 @@ class HBNBCommand(cmd.Cmd):
                         objects.append(str(value))
                 print(objects)
 
-        def do_update(self, line):
+    def do_update(self, line):
         """Update a class instance of a given id by adding or updating"""
         arr = line.split()
         if len(arr) < 1:
@@ -201,7 +203,7 @@ class HBNBCommand(cmd.Cmd):
                 setattr(storage.all()[new_str], arr[2], arr[3])
                 storage.save()
 
-        def do_count(self, line):
+    def do_count(self, line):
         """Prints the number of instances of a given class"""
         # Get the class object from the global namespace
         class_object = globals().get(line, None)
