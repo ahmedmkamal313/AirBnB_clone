@@ -1,5 +1,6 @@
 #!/usr/bin/python3
 """Defines all common attributes/methods for other classes"""
+__authors__ = "Majda Bouzayd, Ahmed Kamal"
 
 # Import the datetime and uuid modules
 import datetime
