@@ -223,6 +223,7 @@ class HBNBCommand(cmd.Cmd):
         print(count)
 
     def default(self, line):
+        """ Defult """
         if line is None:
             return
         cmdPattern = r"^([A-Za-z]+)\.([a-z]+)\(([^(]*)\)"
