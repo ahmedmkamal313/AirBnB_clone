@@ -16,8 +16,8 @@ class BaseModel:
     def __init__(self, *args, **kwargs):
         """Initialize the instance attributes
         Args:
-            - *args: list of arguments
-            - **kwargs: dict of key-values arguments
+            *args: list of arguments
+            **kwargs: dict of key-values arguments
         """
         # If kwargs is not empty
         if kwargs:
