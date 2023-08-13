@@ -2,7 +2,7 @@
 """Unittest module for the Review Class."""
 
 import unittest
-from datetime import datetime
+import datetime
 import time
 from models.review import Review
 import re
