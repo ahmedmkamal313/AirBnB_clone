@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 """A class that represents a user"""
 from models.base_model import BaseModel
+__authors__ = "Majda Bouzayd, Ahmed Kamal"
 
 
 class User(BaseModel):
