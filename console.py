@@ -153,32 +153,41 @@ class HBNBCommand(cmd.Cmd):
 
     def do_all(self, arg):
         """Prints all string representation of all instances."""
+
         # Split the argument by spaces
         args = arg.split()
         # Get all objects from storage using all method
         objects = storage.all()
+
         # Create an empty list to store the string representations
         str_list = []
+
         # If no argument is given, loop through all objects
         if len(args) == 0:
             for obj in objects.values():
                 # Append the string representation of
                 # each object to the list using str method
                 str_list.append(str(obj))
+
         # Otherwise, get the class name from the first argument
         else:
             class_name = args[0]
+
             # Check if the class name is valid (only BaseModel for now),
             # print ** class doesn't exist ** otherwise
             if class_name not in class_home:
                 print("** class doesn't exist **")
                 return
-            cls = getattr(class_home, class_name)
+
             # Loop through all objects
-            for obj in cls.all():
-                # Append the string representation of each
-                # object to the list using str method
-                str_list.append(str(obj))
+            for obj in objects.values():
+                # Check if the object is an instance of
+                # the class using isinstance function
+                if isinstance(obj, eval(class_name)):
+                    # Append the string representation of each
+                    # object to the list using str method
+                    str_list.append(str(obj))
+
         # Print the list of strings
         print(str_list)
 
