@@ -175,59 +175,33 @@ class HBNBCommand(cmd.Cmd):
                         objects.append(str(value))
                 print(objects)
 
-    def do_update(self, arg):
-        """Update command to update an instance based on its class and id"""
-
-        # split the arg by spaces, preserving strings between double
-        # quotes using shlex module
-        args = shlex.split(arg)
-        # if no argument is given, print missing
-        if len(args) == 0:
+    def do_update(self, line):
+        """Update a class instance of a given id by adding or updating
+        a given attribute key/value pair or dictionary.
+        """
+        arr = line.split()
+        if len(arr) < 1:
             print("** class name missing **")
             return
-            # Get the class name from the first argument
-        class_name = args[0]
-        # Check if the class name is valid (only BaseModel for now)
-        if class_name not in class_home:
+        elif arr[0] not in class_home:
             print("** class doesn't exist **")
             return
-        # If only one argument is given, print ** instance id missing **
-        if len(args) == 1:
+        elif len(arr) < 2:
             print("** instance id missing **")
             return
-        # get id from the second arg
-        _id = args[1]
-        # Create a key with the format <class name>.id
-        key = "{}.{}".format(class_name, _id)
-        # Get all objects from storage using all method
-        objects = storage.all()
-        # Check if the key exists in objects dictionary,
-        # print ** no instance found ** otherwise
-        if key not in objects:
-            print("** no instance found **")
-            return
-        obj = objects[key]
-        # if only two args are given, print ** attribute name missing **
-        if len(args) == 2:
-            print("** attribute name missing **")
-            return
-        # get the attr name from the third arg
-        attr_name = args[2]
-        # if only 3 args are given print value missing
-        if len(args) == 3:
-            print("** value missing **")
-            return
-        # get the atr value from the 4th arg
-        attr_value = args[3]
-        try:
-            attr_value = int(attr_value)
-        except ValueError:
-            try:
-                attr_value = float(attr_value)
-            except ValueError:
-                attr_value = str(attr_value).strip('"')
-        setattr(obj, attr_name, attr_value)
-        storage.save()
+        else:
+            new_str = f"{arr[0]}.{arr[1]}"
+            if new_str not in storage.all().keys():
+                print("** no instance found **")
+            elif len(arr) < 3:
+                print("** attribute name missing **")
+                return
+            elif len(arr) < 4:
+                print("** value missing **")
+                return
+            else:
+                setattr(storage.all()[new_str], arr[2], arr[3])
+                storage.save()
 
     def do_count(self, line):
         """Prints the number of instances of a given class."""
