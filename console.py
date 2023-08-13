@@ -173,14 +173,12 @@ class HBNBCommand(cmd.Cmd):
             if class_name not in class_home:
                 print("** class doesn't exist **")
                 return
+            cls = getattr(class_home, class_name)
             # Loop through all objects
-            for obj in objects.values():
-                # Check if the object is an instance of
-                # the class using isinstance function
-                if isinstance(obj, eval(class_name)):
-                    # Append the string representation of each
-                    # object to the list using str method
-                    str_list.append(str(obj))
+            for obj in cls.all():
+                # Append the string representation of each
+                # object to the list using str method
+                str_list.append(str(obj))
         # Print the list of strings
         print(str_list)
 
@@ -237,42 +235,6 @@ class HBNBCommand(cmd.Cmd):
                 attr_value = str(attr_value).strip('"')
         setattr(obj, attr_name, attr_value)
         storage.save()
-
-    # Define a method to parse the input and get the class name and the command
-    def parse_input(self, arg):
-        """Parse the input and get the class name and the command"""
-        # Split the argument by dots
-        args = arg.split(".")
-        # If there are two arguments, return them as a tuple
-        if len(args) == 2:
-            return args[0], args[1]
-        # Otherwise, return None
-        else:
-            return None
-
-    def execute_command(self, class_name, command):
-        """Execute the command based on the class name and the command"""
-        # Check if the class name is valid (only BaseModel and User for now)
-        if class_name not in ["BaseModel", "User"]:
-            print("** class doesn't exist **")
-            return
-        # Get the class object from the global namespace using globals
-        cls = globals()[class_name]
-        # Check if the command is all
-        if command == "all()":
-            # Call the all method of the class and print the result
-            print(cls.all())
-        # Otherwise, print ** invalid command **
-        else:
-            print("** invalid command **")
-
-    def default(self, arg):
-        """Handle any input that is not a predefined command"""
-        # Parse the input and get the class name and the command
-        result = self.parse_input(arg)
-        # If the result is not None, execute the command
-        if result is not None:
-            self.execute_command(*result)
 
 
 # Check if the file is executed and not imported
