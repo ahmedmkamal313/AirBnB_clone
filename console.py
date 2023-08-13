@@ -151,45 +151,29 @@ class HBNBCommand(cmd.Cmd):
         # Save the change to the JSON file using storage
         storage.save()
 
-    def do_all(self, arg):
-        """Prints all string representation of all instances."""
-
-        # Split the argument by spaces
-        args = arg.split()
-        # Get all objects from storage using all method
-        objects = storage.all()
-
-        # Create an empty list to store the string representations
-        str_list = []
-
-        # If no argument is given, loop through all objects
-        if len(args) == 0:
-            for obj in objects.values():
-                # Append the string representation of
-                # each object to the list using str method
-                str_list.append(str(obj))
-
-        # Otherwise, get the class name from the first argument
+    def do_all(self, line):
+        """ Print all instances in string representation """
+        # Create an empty list to store the objects
+        objects = []
+        # Check if the line is empty
+        # Print all the values in the storage as strings
+        if line == "":
+            print([str(value) for key, value in storage.all().items()])
         else:
-            class_name = args[0]
-
-            # Check if the class name is valid (only BaseModel for now),
-            # print ** class doesn't exist ** otherwise
-            if class_name not in class_home:
+            # Split the line by spaces
+            st = line.split(" ")
+            # Check if the first element is a valid class name
+            if st[0] not in class_home:
                 print("** class doesn't exist **")
-                return
-
-            # Loop through all objects
-            for obj in objects.values():
-                # Check if the object is an instance of
-                # the class using isinstance function
-                if isinstance(obj, eval(class_name)):
-                    # Append the string representation of each
-                    # object to the list using str method
-                    str_list.append(str(obj))
-
-        # Print the list of strings
-        print(str_list)
+            else:
+                # Loop through all the items in the storage
+                for key, value in storage.all().items():
+                    # Split the key by dots
+                    clas = key.split(".")
+                    # Check if the first element matches the class name
+                    if clas[0] == st[0]:
+                        objects.append(str(value))
+                print(objects)
 
     def do_update(self, arg):
         """Update command to update an instance based on its class and id"""
@@ -244,6 +228,37 @@ class HBNBCommand(cmd.Cmd):
                 attr_value = str(attr_value).strip('"')
         setattr(obj, attr_name, attr_value)
         storage.save()
+
+    def default(self, line):
+        if line is None:
+            return
+        cmdPattern = r"^([A-Za-z]+)\.([a-z]+)\(([^(]*)\)"
+        paramsPattern = """^"([^"]+)"(?:,\\s*(?:"([^"]+)"|""" + \
+                        """(\\{[^}]+\\}))(?:,\\s*(?:("?[^"]+"?)))?)?"""
+        m = re.match(cmdPattern, line)
+        if not m:
+            super().default(line)
+            return
+        mName, method, params = m.groups()
+        m = re.match(paramsPattern, params)
+        params = [item for item in m.groups() if item] if m else []
+
+        cmd = " ".join([mName] + params)
+
+        if method == 'all':
+            return self.do_all(cmd)
+
+        if method == 'count':
+            return self.do_count(cmd)
+
+        if method == 'show':
+            return self.do_show(cmd)
+
+        if method == 'destroy':
+            return self.do_destroy(cmd)
+
+        if method == 'update':
+            return self.do_update(cmd)
 
 
 # Check if the file is executed and not imported
