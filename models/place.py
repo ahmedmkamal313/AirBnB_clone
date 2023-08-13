@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 # models/place.py
 from models.base_model import BaseModel
+__authors__ = "Majda Bouzayd, Ahmed Kamal"
 
 
 class Place(BaseModel):
