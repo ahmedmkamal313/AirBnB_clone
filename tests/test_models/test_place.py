@@ -2,7 +2,7 @@
 """Unittest module for the Place Class."""
 
 import unittest
-from datetime import datetime
+import datetime
 import time
 from models.place import Place
 import re
