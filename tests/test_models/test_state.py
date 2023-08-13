@@ -8,7 +8,7 @@ Unittest classes:
 import os
 import models
 import unittest
-import datetime
+from datetime import datetime
 from time import sleep
 from models.state import State
 from models import storage
