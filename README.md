@@ -6,7 +6,7 @@
 Welcome to the AirBnB clone project! This is the first step towards building a full web application: **the AirBnB clone.**
 This project is a part of ALX Software Engineering Program. 🌍
 
-![airBnB](https://camo.githubusercontent.com/6689c4bad2df509f593b8b1a0005f2ced112140ce840fa283bd453722642557b/68747470733a2f2f692e696d6775722e636f6d2f553842386734482e706e67)
+![airBnB](https://camo.githubusercontent.com/59589bd21e8ec09ef94f2d9bb80d36d144bc487fe4737f8b213d005f3273921b/68747470733a2f2f696d6775722e636f6d2f4f696c457358562e706e67)
 
 ## Authors 👥
 This project was created by:
