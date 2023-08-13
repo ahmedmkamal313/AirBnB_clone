@@ -152,7 +152,7 @@ class HBNBCommand(cmd.Cmd):
         storage.save()
 
     def do_all(self, line):
-        """ Print all instances in string representation """
+        """Print all instances in string representation"""
         # Create an empty list to store the objects
         objects = []
         # Check if the line is empty
@@ -176,9 +176,7 @@ class HBNBCommand(cmd.Cmd):
                 print(objects)
 
     def do_update(self, line):
-        """Update a class instance of a given id by adding or updating
-        a given attribute key/value pair or dictionary.
-        """
+        """Update a class instance of a given id by adding or updating"""
         arr = line.split()
         if len(arr) < 1:
             print("** class name missing **")
@@ -204,7 +202,7 @@ class HBNBCommand(cmd.Cmd):
                 storage.save()
 
     def do_count(self, line):
-        """Prints the number of instances of a given class."""
+        """Prints the number of instances of a given class"""
         # Get the class object from the global namespace
         class_object = globals().get(line, None)
         if class_object is None:
