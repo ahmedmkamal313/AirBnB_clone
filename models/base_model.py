@@ -4,7 +4,6 @@
 # Import the datetime and uuid modules
 import datetime
 import uuid
-# Import the variable storage from models
 import models
 
 
