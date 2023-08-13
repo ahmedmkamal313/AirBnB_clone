@@ -223,7 +223,7 @@ class HBNBCommand(cmd.Cmd):
         print(count)
 
     def default(self, line):
-        """ Defult """
+        """Defult fnction that represent default values"""
         if line is None:
             return
         cmdPattern = r"^([A-Za-z]+)\.([a-z]+)\(([^(]*)\)"
