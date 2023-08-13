@@ -229,6 +229,25 @@ class HBNBCommand(cmd.Cmd):
         setattr(obj, attr_name, attr_value)
         storage.save()
 
+    def do_count(self, line):
+        """Prints the number of instances of a given class."""
+        # Get the class object from the global namespace
+        class_object = globals().get(line, None)
+        if class_object is None:
+            # Print an error message if the class does not exist
+            print("** class doesn't exist **")
+            return
+        # Initialize the count to zero
+        count = 0
+        # Loop through all the objects in the storage
+        for obj in storage.all().values():
+            # Check if the object belongs to the given class
+            if obj.__class__.__name__ == line:
+                # Increment the count by one
+                count += 1
+        # Print the count to the standard output
+        print(count)
+
     def default(self, line):
         if line is None:
             return
