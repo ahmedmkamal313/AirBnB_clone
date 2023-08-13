@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 # models/review.py
 from models.base_model import BaseModel
+__authors__ = "Majda Bouzayd, Ahmed Kamal"
 
 
 class Review(BaseModel):
