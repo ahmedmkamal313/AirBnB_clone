@@ -2,7 +2,7 @@
 """Unittest module for the City Class."""
 
 import unittest
-from datetime import datetime
+import datetime
 import time
 from models.city import City
 import re
