@@ -198,7 +198,15 @@ class HBNBCommand(cmd.Cmd):
                 print("** value missing **")
                 return
             else:
-                setattr(storage.all()[new_str], arr[2], arr[3])
+                dict_str = arr[3]
+                try:
+                    dict_update = json.loads(dict_str)
+                except json.JSONDecodeError:
+                    print("** invalid JSON **")
+                    return
+                obj = storage.all()[new_str]
+                for key, value in dict_update.items():
+                    setattr(obj, key, value)
                 storage.save()
 
     def do_count(self, line):
