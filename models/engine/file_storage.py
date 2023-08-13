@@ -1,4 +1,5 @@
 #!/usr/bin/python3
+__authors__ = "Majda Bouzayd, Ahmed Kamal"
 
 import json
 import os
