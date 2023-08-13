@@ -15,6 +15,7 @@ from datetime import datetime
 from time import sleep
 import uuid
 
+
 class TestUser_instantiation(unittest.TestCase):
     """User model class test case"""
 
