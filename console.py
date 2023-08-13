@@ -1,8 +1,6 @@
 #!/usr/bin/python3
 """Module for the entry point of the command interpreter."""
 
-__authors__ = "Majda Bouzayd, Ahmed Kamal"
-
 
 import cmd
 import shlex
