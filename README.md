@@ -1,4 +1,4 @@
-# 0x00. AirBnB clone - The console 🛩️
+# AirBnB clone 🛩️
 [![Paython: 3.8.10](https://img.shields.io/badge/Python-3.8.10-blue.svg)](https://en.wikipedia.org/wiki/Python_(programming_language))
 
 ## Introduction 🚀
@@ -13,7 +13,7 @@ This project was created by:
 - [Majda Bouzayd](https://github.com/Magdalina1)
 - [Ahmed Kamal](https://github.com/ahmedmkamal313)
 
-## First Step: The Console 💻
+## First Step: The Console 💻 (0x00. AirBnB clone - The console 🛩️)
 
 - The first part of this project is to write a **command interpreter** (also called a console) to manage the AirBnB objects.
 - The console will allow to create, update, delete, and manipulate different types of objects, such as users, states, cities, places, etc.
@@ -116,6 +116,13 @@ The project includes unittests for all classes and methods. To run the tests, ch
 ```
 python3 -m unittest discover
 ```
+## Second Step: Web Static 💻 (0x01. AirBnB clone - Web static :house_with_garden:)
+
+This project is part of the **AirBnB clone** project, which aims to create a web application that connects people who have a home to offer with people who need a place to stay temporarily. The **web static** part focuses on creating the front end of the web application using **HTML** and **CSS**.
+
+![thecurrentstage](https://peytonbrsmith.netlify.app/projects/web/airbnb/87c01524ada6080f40fc_hu0d2caa1c6b3d5ace81a9d755296ff01f_123580_700x0_resize_box_3.png)
+
+
 ## Files 📂
 This section lists the files and folders in this project and their descriptions.
 - [console.py](https://github.com/ahmedmkamal313/AirBnB_clone/blob/master/console.py): The main script that runs the console.
@@ -141,4 +148,9 @@ This section lists the files and folders in this project and their descriptions.
     - [test_engine](https://github.com/ahmedmkamal313/AirBnB_clone/tree/master/tests/test_models/test_engine): A subfolder that contains the unittests for the modules in the engine subfolder.
       - [test_file_storage.py](https://github.com/ahmedmkamal313/AirBnB_clone/blob/master/tests/test_models/test_engine/test_file_storage.py): The unittests for the file storage module.
    - [test_console.py](https://github.com/ahmedmkamal313/AirBnB_clone/blob/master/tests/test_console.py): The unittests for the console.
+- [web_static](https://github.com/ahmedmkamal313/AirBnB_clone/tree/master/web_static): A folder     that contains the static files for the web application, such as HTML, CSS, and images.
+   - [images](https://github.com/ahmedmkamal313/AirBnB_clone/tree/master/web_static/images): a directory contains the images used in the web pages, such as logos, icons, and photos.
+   - [styles](https://github.com/ahmedmkamal313/AirBnB_clone/tree/master/web_static/styles): a directory the CSS style sheets for the web pages, such as fonts, colors, and layouts
 - `README.md`: This file, which contains an overview of the project and how to use it.
+
+
