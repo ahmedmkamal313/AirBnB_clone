@@ -9,6 +9,6 @@ This project is part of the **AirBnB clone** project, which aims to create a web
 - [index.html](): html files were created for tasks and they are the main entry point for the web application. It contains the HTML code for the home page, which displays a list of properties available for rent. each file was a step to reach the required layout.
 
 
-![thecurrentstat](https://ibb.co/YtLktZR)
+![thecurrentstat](https://i.ibb.co/55R85FM/Screenshot-from-2023-08-22-03-09-01.png)
 ## Author:
 [Ahmed Kamal](https://github.com/ahmedmkamal313)
