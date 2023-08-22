@@ -8,5 +8,7 @@ This project is part of the **AirBnB clone** project, which aims to create a web
 - [styles](https://github.com/ahmedmkamal313/AirBnB_clone/tree/master/web_static/styles): a directory the CSS style sheets for the web pages, such as fonts, colors, and layouts
 - [index.html](): html files were created for tasks and they are the main entry point for the web application. It contains the HTML code for the home page, which displays a list of properties available for rent. each file was a step to reach the required layout.
 
+
+![thecurrentstat](https://ibb.co/YtLktZR)
 ## Author:
 [Ahmed Kamal](https://github.com/ahmedmkamal313)
